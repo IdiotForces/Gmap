@@ -28,7 +28,7 @@ CXXFLAGS_=-Wall -std=c++11 -O2 -isystem$(PATH_LUA)/include \
 			-isystem$(PATH_LUABRIDGE)/ 
 
 CXXFLAGS_DARWIN=-isystem$(PATH_BULLET_DARWIN)/include -I$(PATH_BULLET_DARWIN)/include/Bullet
-CXXFLAGS_MINGW=-Wl,-Bstatic -static -fpermissive -isystem$(PATH_BULLET_MINGW)/include -I$(PATH_BULLET_MINGW)/include/Bullet
+CXXFLAGS_MINGW=-Wl,-Bstatic -static -isystem$(PATH_BULLET_MINGW)/include -I$(PATH_BULLET_MINGW)/include/Bullet
 
 LDFLAGS_= -L$(PATH_LUA)/lib -L$(PATH_SFML)/lib \
 		-lsfml-window -lsfml-graphics -lsfml-system
