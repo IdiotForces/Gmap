@@ -4,7 +4,7 @@ OBJECTS = Abstract.o ObjectManger.o Anim.o Pathfinder.o CameraObject.o \
 		RenderElementsContainer.o Gmap_Interface.o Session.o InternalDraw.o \
 		Techno.o LWindow.o Test.o LuaInterface.o Transform.o LuaUtils.o \
 		Type_Abstract.o Map.o Type_Anim.o Object.o Type_Object.o \
-		ObjectArrayImpl.o Type_Techno.o
+		ObjectArrayImpl.o Type_Techno.o SFLineShape.o
 
 PATH_LUA=./extlibs/lua
 PATH_SFML=./extlibs/sfml
@@ -24,20 +24,29 @@ SOURCE_PATH = ./src/
 RESFILE = ./misc/ver.rc
 RESFILE_OUTPUT = ver.res
 
-CXXFLAGS_=-Wall -std=c++11 -O2 \
+CXXFLAGS_=-Wall -std=c++11 -O2 -DSFML_STATIC \
 			-isystem$(PATH_SFML)/include -isystem$(PATH_ARMADILLO)/include \
 			-isystem$(PATH_LUABRIDGE)/ -isystem$(PATH_LUAJIT)/include
 
 CXXFLAGS_DARWIN=-isystem$(PATH_BULLET_DARWIN)/include -I$(PATH_BULLET_DARWIN)/include/Bullet
 CXXFLAGS_MINGW=-Wl,-Bstatic -static -isystem$(PATH_BULLET_MINGW)/include -I$(PATH_BULLET_MINGW)/include/Bullet
 
-LDFLAGS_=-L$(PATH_SFML)/lib -L$(PATH_LUAJIT)/lib \
-		-lsfml-window -lsfml-graphics -lsfml-system
+LDFLAGS_=-L$(PATH_SFML)/lib -L$(PATH_LUAJIT)/lib
 
 LDFLAGS_DARWIN=-L$(PATH_BULLET_DARWIN)/lib -lluajit_darwinclang -lLinearMath_xcode4_x64_release \
-		-lBulletDynamics_xcode4_x64_release -lBulletCollision_xcode4_x64_release -pagezero_size 10000 -image_base 100000000
+		-lBulletDynamics_xcode4_x64_release -lBulletCollision_xcode4_x64_release \
+		-pagezero_size 10000 -image_base 100000000 \
+		-framework sfml-graphics -framework sfml-window -framework sfml-system \
+		-framework Foundation -framework OpenGL -framework Carbon -framework IOKit -framework AppKit \
+		-lglew -ljpeg
 
-LDFLAGS_MINGW=-L$(PATH_BULLET_MINGW)/lib -Wl,-Bstatic -static -lluajit_static_mingw -lBulletDynamics -lBulletCollision -lLinearMath
+# 		-lsfml-window-s_darwinclang -lsfml-graphics-s_darwinclang -lsfml-system-s_darwinclang
+
+LDFLAGS_MINGW=-L$(PATH_BULLET_MINGW)/lib -Wl,-Bstatic -static \
+	-lluajit_static_mingw -lBulletDynamics -lBulletCollision -lLinearMath \
+	-lsfml-graphics-s_mingw -lsfml-window-s_mingw -lsfml-system-s_mingw -lfreetype \
+	-ljpeg -lglew -lopengl32 -lgdi32 -lwinmm
+
 RESCMP_ = windres
 
 _OBJECTS=$(addprefix $(BUILD_PATH),$(OBJECTS))

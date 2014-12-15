@@ -204,9 +204,8 @@ OBJECTS.GRAPH_LINE = BASES.BaseTechno:newObject({
 				point1 = { 0, 1000, 50 },
 				point2 = { 1000, 0, 50 },
 				offset = { 0, 0, 0 },
-				thickness = 0,
-				color1 = { 1, 1, 1, 0.5 },
-				color2 = { 1, 1, 1, 0.7 }
+				thickness = 2,
+				color = { 1, 1, 1, 0.5 }
 			},
 		}
 	},
@@ -233,18 +232,18 @@ OBJECTS.GRAPH_NODE = BASES.BaseTechno:newObject({
 
 	appearance = {
 		render_elements = {
-			-- {
-			-- 	name = 'body',
-			-- 	type_general = true,
-			-- 	type_directioned = false,
-			-- 	type_static = true,
-			-- 	has_shadow = true,
-			-- 	image = "GRAPH_NODE_IMAGE",
-			-- 	shadow = "GRAPH_NODE_SHADOW",
-			-- 	offset = { 0, 0, 0 },
-			-- 	multiply = { 1.0, 1.0, 1.0, 1.0 },
-			-- 	affected_by_global_multiply = true,
-			-- }
+			{
+				name = 'body',
+				type_general = true,
+				type_directioned = false,
+				type_static = true,
+				has_shadow = true,
+				image = "GRAPH_NODE_IMAGE",
+				shadow = "GRAPH_NODE_SHADOW",
+				offset = { 0, 0, 0 },
+				multiply = { 1.0, 1.0, 1.0, 1.0 },
+				affected_by_global_multiply = true,
+			}
 		}
 	},
 

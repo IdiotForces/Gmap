@@ -201,6 +201,18 @@ function comp_RenderBasicBody:on_init()
 
 		local element_body = nil
 		local coord_offset = Utility.CoordStruct(unpack(element.offset))
+
+		if element.has_shadow then
+			local element_shadow = creator(Helpers.texture(element.shadow), element.shadow_faces)
+			element_shadow.UseShadowProjection = true
+			element_shadow.colorMultiply = Utility.Homogeneous4D(0.1, 0.1, 0.1, 0.6)
+			element_shadow.offset = coord_offset
+			if element.type_directioned then
+				element_shadow.direction_offset = element.direction_offset
+			end
+			elements_manger:add_element(10, element.name .. '_shadow', element_shadow)
+		end
+		
 		if element.type_general then
 			element_body = creator(Helpers.texture(element.image), element.image_faces)
 			element_body.offset = coord_offset
@@ -210,25 +222,13 @@ function comp_RenderBasicBody:on_init()
 		elseif element.type_internal_line then
 			local coord1 = Utility.CoordStruct(unpack(element.point1))
 			local coord2 = Utility.CoordStruct(unpack(element.point2))
-			local color1 = Utility.Homogeneous4D(unpack(element.color1))
-			local color2 = Utility.Homogeneous4D(unpack(element.color2))
+			local color = Utility.Homogeneous4D(unpack(element.color))
 
-			element_body = creator(coord1, coord2, color1, color2)
+			element_body = creator(coord1, coord2, color)
 			element_body.thickness = element.thickness
 		end
 
 		elements_manger:add_element(0, element.name, element_body)
-
-		if element.has_shadow then
-			local element_shadow = creator(Helpers.texture(element.shadow), element.shadow_faces)
-			element_shadow.UseShadowProjection = true
-			element_shadow.colorMultiply = Utility.Homogeneous4D(0.1, 0.1, 0.1, 0.3)
-			element_shadow.offset = coord_offset
-			if element.type_directioned then
-				element_shadow.direction_offset = element.direction_offset
-			end
-			elements_manger:add_element(-10, element.name .. '_shadow', element_shadow)
-		end
 	end
 end
 
